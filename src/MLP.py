@@ -8,8 +8,16 @@ class Perceptron:
 
     def __init__(self, inputs, bias = 1.0):
         """Return a new Perceptron object with the specified number of inputs (+1 for the bias).""" 
+        
+        # np.random.rand --> create an array of the given shape and
+        # populate it with random samples from a uniform distribution
+        # over [0, 1). In questo caso abbiamo un vettore (rango 1)
+        # avente inputs+1 elementi. Moltiplicando per 2 e sottraendo
+        # 1 otteniamo una distribuzione uniforme su [-1, 1)
         self.weights = (np.random.rand(inputs+1) * 2) - 1 
+
         self.bias = bias
+
 
     def run(self, x):
         """Run the perceptron. x is a python list with the input values."""
