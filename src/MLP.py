@@ -29,7 +29,7 @@ class Perceptron:
 class MultiLayerPerceptron:     
     """A multilayer perceptron class that uses the Perceptron class above.
        Attributes:
-          layers:  A python list with the number of elements per layer.
+          layers:  A python list with the number of neurons per layer.
           bias:    The bias term. The same bias is used for all neurons.
           eta:     The learning rate."""
 
@@ -38,15 +38,24 @@ class MultiLayerPerceptron:
         self.layers = np.array(layers,dtype=object)
         self.bias = bias
         self.network = [] # The list of lists of neurons
-        self.values = []  # The list of lists of output values
+        self.values = []  # The list of lists of output values.
 
-        for i in range(len(self.layers)):
+        for i in range(len(self.layers)):   # Per ogni layer
             self.values.append([])
             self.network.append([])
+
+            # self.values[i] identifica la lista di valori in uscita dal layer i-esimo.
+            # Tale lista presenta un numero di elementi pari al numero di neuroni del
+            # layer i-esimo. Inizialmente i valori delle uscite di ciascun layer sono a 0.0
             self.values[i] = [0.0 for j in range(self.layers[i])]
+
             if i > 0:      #network[0] is the input layer, so it has no neurons
-                for j in range(self.layers[i]): 
+                for j in range(self.layers[i]):  # Per ogni neurone del layer i-esimo
+                    # self.network[i] individua la lista di neuroni contenuti nel layer i-esimo.
+                    # A questa lista appendo un percettrone avente un numero di ingressi pari al
+                    # numero di neuroni presenti nel layer precedente
                     self.network[i].append(Perceptron(inputs = self.layers[i-1], bias = self.bias))
         
+        # La lista di liste viene convertita in numpy array di numpy array 
         self.network = np.array([np.array(x) for x in self.network],dtype=object)
         self.values = np.array([np.array(x) for x in self.values],dtype=object)
