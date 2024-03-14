@@ -30,6 +30,10 @@ neuron = Perceptron(inputs=2)
 neuron.set_weights([10,10,-15]) #AND
 
 print("Gate:")
+# {0:.10f} --> il primo 0 è un placeholder che fa riferimento al
+# fatto che al posto di 0 deve esserci scritto il contenuto della
+# prima parte (e unica in questo caso) di format.
+# :.10f specifica che servono 10 cifre dopo la virgola
 print ("0 0 = {0:.10f}".format(neuron.run([0,0])))
 print ("0 1 = {0:.10f}".format(neuron.run([0,1])))
 print ("1 0 = {0:.10f}".format(neuron.run([1,0])))
