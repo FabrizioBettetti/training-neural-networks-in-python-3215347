@@ -21,5 +21,12 @@ class Perceptron:
 
     def run(self, x):
         """Run the perceptron. x is a python list with the input values."""
+        
+        # Alla lista degli ingressi appendi il bias (che di default
+        # è unitario) ed effettua il prodotto scalare tra i pesi
+        # e gli ingressi+bias
         x_sum = np.dot(np.append(x,self.bias),self.weights)
+
+        # Ritorna la funzione sigmoidea calcolata sulla somma
+        # precedente
         return self.sigmoid(x_sum)
