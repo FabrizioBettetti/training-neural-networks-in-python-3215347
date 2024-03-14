@@ -53,9 +53,17 @@ class MultiLayerPerceptron:
 
     def set_weights(self, w_init):
         """Set the weights. 
-           w_init is a 3D list with the weights for all but the input layer."""
-        for i in range(len(w_init)):
-            for j in range(len(w_init[i])):
+           w_init is a 3D list with the weights for all but the input layer.
+           1^dimensione scorre i layer;
+           2^dimensione scorre i neuroni dato il layer;
+           3^dimensione scorre i pesi dato il neurone nel layer """
+        # len(w_init) estrae il numero di elementi nella prima dimensione
+        for i in range(len(w_init)):   # Per ogni layer
+            # len(w_init[i]) estrae il numero di elementi nella seconda dimensione
+            for j in range(len(w_init[i])):   # Per ogni neurone
+                # L'elemento i+1,j di network è un percettrone che presenta
+                # il metodo set_weights. Si parte dal layer i+1 perché il
+                # primo layer NON ha neuroni essendo quello d'ingresso
                 self.network[i+1][j].set_weights(w_init[i][j])
 
     def print_weights(self):
@@ -68,16 +76,19 @@ class MultiLayerPerceptron:
     def run(self, x):
         """Feed a sample x into the MultiLayer Perceptron."""
         x = np.array(x,dtype=object)
-        self.values[0] = x
+        self.values[0] = x   # In uscita dal primo layer (quello d'ingresso)
+                             # ci sono gli ingressi stessi
         for i in range(1,len(self.network)):
             for j in range(self.layers[i]):  
                 self.values[i][j] = self.network[i][j].run(self.values[i-1])
-        return self.values[-1]
+        return self.values[-1]   # Uscita finale
 
 
 
 #test code
 mlp = MultiLayerPerceptron(layers=[2,2,1])  #mlp
+# A XOR B = !(AB)(A+B) = (!A+!B)(A+B) = !AB + A!B
+                  # NAND      # OR         # AND
 mlp.set_weights([[[-10,-10,15],[15,15,-10]],[[10,10,-15]]])
 mlp.print_weights()
 print("MLP:")
